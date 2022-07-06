@@ -23,7 +23,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->unsignedBigInteger('estadoUsuario');
-            $table->foreign('estadoUsuario','fk_usuario_estado')->references('id')->on('estados')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreign('estadoUsuario','fk_estado_usuario')->references('id')->on('estados')->onDelete('restrict')->onUpdate('restrict');
             $table->rememberToken();
             $table->timestamps();
             $table->charset = 'utf8mb4';

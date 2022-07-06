@@ -1,10 +1,10 @@
 @extends("theme.$theme.layout")
 @section('titulo')
-Clientes
+Categoria
 @endsection
 @section('metadata')
 <meta name="csrf-token" content="{{csrf_token()}}"/> 
-<script src="{{asset("assets/scripts/admin/cliente/rellenarFormulario.js")}}"></script> 
+<script src="{{asset("assets/scripts/admin/categoria/rellenarFormulario.js")}}"></script> 
 <script src="{{asset("assets/scripts/guardarFormulario.js")}}"></script> 
 <script src="{{asset("assets/scripts/buscar.js")}}"></script> 
 <script src="{{asset("assets/scripts/eliminar.js")}}"></script> 
@@ -18,25 +18,25 @@ Clientes
     <div class="col-lg-10">
       <div class="card card-info card-outline mt-1">
         <div class="card-header">
-            @include('admin/cliente/includes/formularioBusqueda')
+            @include('admin/categoria/includes/formularioBusqueda')
         </div>
         <div class="card-body">
           {{-- Aqui se imprime la tabla --}}
           <div id="datos"></div>
           {{-- formulario de guardado --}}
           <form id="formulario" autocomplete="off" class="form-inline">
-            @include('admin/cliente/includes/modalFormulario')  
+            @include('admin/categoria/includes/modalFormulario')  
           </form>
           {{-- boton para abrir el formulario --}}
           <button type="button" id="opcionCrear" class="btn btn-info" data-toggle="modal" data-target="#modal-lg">
-            Nuevo Cliente
+            Nueva Categoria
           </button>
         </div>
       </div>
     </div>
     <!-- /.col-md-6 -->
   </div>
-  @include('admin/cliente/includes/modalConfirmDelet')
+  @include('admin/categoria/includes/modalConfirmDelet')
 
 <script>  
   var token = $("#token").val();
@@ -44,10 +44,10 @@ Clientes
   var urlEditar;
   var urlFormulario;
   var tipo;
-  const urlListar = "{{route('cliente.listar')}}";
+  const urlListar = "{{route('categoria.listar')}}";
   /* Cambiar urlFormulario a guardar*/   
   $(document).on("click","#opcionCrear",function(e){
-    urlFormulario="{{route('cliente.guardar')}}";
+    urlFormulario="{{route('categoria.guardar')}}";
     tipo="POST"
     document.getElementById("formulario").reset(); 
   });

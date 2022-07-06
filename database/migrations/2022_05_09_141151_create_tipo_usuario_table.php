@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('tipo_usuario', function (Blueprint $table) {
             $table->id();
-            $table->string('nombreTipoUsuario', 30);
+            $table->string('nombreTipoUsuario', 15);
             $table->timestamps();
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_spanish_ci';

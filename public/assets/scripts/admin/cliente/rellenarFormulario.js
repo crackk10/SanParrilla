@@ -5,4 +5,5 @@ function Rellenar(data) {
   $('#direccion').val(data.direccion);
   $('#barrio').val(data.barrio);
   $('#documento').val(data.documento);
+  $('#indicacion').val(data.indicacion);
 }

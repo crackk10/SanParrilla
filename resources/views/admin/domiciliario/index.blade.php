@@ -20,14 +20,14 @@ Domiciliarios
     <!-- /.col-md-6 -->
     <div class="col-lg-10">
       <div class="card card-info card-outline mt-1">
-        <div class="card-header">
+        <div class="card-header h-25">
             @include('admin/domiciliario/includes/formularioBusqueda')
         </div>
         <div class="card-body">
           {{-- Aqui se imprime la tabla --}}
           <div id="datos"></div>
           {{-- formulario de guardado --}}
-          <form id="formulario" autocomplete="off" enctype="multipart/form-data" >
+          <form id="formulario" autocomplete="off" enctype="multipart/form-data" class="form-inline">
             @include('admin/domiciliario/includes/modalFormulario')  
           </form>
           {{-- boton para abrir el formulario --}}

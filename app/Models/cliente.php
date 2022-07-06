@@ -9,6 +9,6 @@ class cliente extends Model
 {
     protected $connection = 'mysql';
     protected $table = "cliente";
-    protected $fillable = ['id', 'nombreCliente', 'apellidoCliente','telefonoCliente','direccion','barrio','documento'];
+    protected $fillable = ['id', 'nombreCliente', 'apellidoCliente','telefonoCliente','direccion','barrio','documento','indicacion'];
 
 }

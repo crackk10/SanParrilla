@@ -1,116 +1,80 @@
 <!-- /campo nombre y apellido -->
 <div class="row">
-  <div class="col-lg-6">
-    {{-- campo nombre --}}
-    <div class="form-group">
-        <label for="nombreDomiciliario" class="col-lg-12 control-label requerido">Nombres</label>
-        <div class="col-lg-12">
-        <input  type="text" id="nombreDomiciliario" name="nombreDomiciliario" class="form-control"  value="{{old('nombreDomiciliario')}}" >
-        </div>
-    </div>
-    {{-- campo nombre --}}
+  {{-- campo nombre --}}
+  <div class="form-group col-lg-6">
+      <label for="nombreDomiciliario" class="col-lg-3 control-label requerido">Nombres</label>
+      <input  type="text" id="nombreDomiciliario" name="nombreDomiciliario" class="form-control col-lg-9"  value="{{old('nombreDomiciliario')}}" >
   </div>
-  <div class="col-lg-6">
-    {{-- campo apellido --}}
-    <div class="form-group">
-      <div class="form-group">
-        <label for="apellidoDomiciliario" class="col-lg-12 control-label requerido">Apellidos</label>
-        <div class="col-lg-12">
-          <input  type="text" id="apellidoDomiciliario" name="apellidoDomiciliario" class="form-control"  value="{{old('apellidoDomiciliario')}}" >
-        </div>
-      </div>
-    </div>
-    {{-- campo apellido --}}
+  {{-- campo nombre --}}
+  {{-- campo apellido --}}
+  <div class="form-group col-lg-6">
+    <label for="apellidoDomiciliario" class="col-lg-3 control-label requerido">Apellidos</label>
+    <input  type="text" id="apellidoDomiciliario" name="apellidoDomiciliario" class="form-control col-lg-9"  value="{{old('apellidoDomiciliario')}}" >
   </div>
+  {{-- campo apellido --}}
 </div>
 <!-- campo nombre y apellido -->
-
-
-
-
 <!-- /campo documento y telefono -->
-<div class="row">
-  <div class="col-lg-6">
-    {{-- campo documento --}}
-    <div class="form-group">
-      <label for="documentoDomiciliario" class="col-lg-12 control-label requerido">Documento</label>
-      <div class="col-lg-12">
-        <input  type="number" id="documentoDomiciliario" name="documentoDomiciliario" class="form-control"  value="{{old('documentoDomiciliario')}}" >
-      </div>
-    </div>
-    {{-- campo documento --}}
+<div class="row mt-2">
+  {{-- campo documento --}}
+  <div class="form-group col-lg-6">
+    <label for="documentoDomiciliario" class="col-lg-3 control-label requerido">Documento</label>
+    <input  type="number" id="documentoDomiciliario" name="documentoDomiciliario" class="form-control col-lg-9"  value="{{old('documentoDomiciliario')}}" >
   </div>
-  <div class="col-lg-6">
-    {{-- campo telefono --}}
-    <div class="form-group">
-      <div class="form-group">
-        <label for="telefonoDomiciliario" class="col-lg-12 control-label ">Telefono</label>
-        <input  type="number" id="telefonoDomiciliario" name="telefonoDomiciliario" class="form-control"  value="{{old('telefonoDomiciliario')}}" >
-      </div>
-    </div>
-    {{-- campo telefono --}}
+  {{-- campo documento --}}
+  {{-- campo telefono --}}
+  <div class="form-group col-lg-6">
+    <label for="telefonoDomiciliario" class="col-lg-3 control-label ">Telefono</label>
+    <input  type="number" id="telefonoDomiciliario" name="telefonoDomiciliario" class="form-control col-lg-9"  value="{{old('telefonoDomiciliario')}}" >
   </div>
+  {{-- campo telefono --}}
 </div>
 <!-- campo documento y telefono -->
-
-
 <!-- /campo estado y cargar foto-->
-<div class="row">
-  <div class="col-lg-6">
-    {{-- campo estado --}}
-      <div class="form-group ">
-          <label for="estadoDomiciliario" class="col-lg-12 control-label requerido">Estado</label>
-          <div class="col-lg-12">
-              <select class="form-control " id="estadoDomiciliario" name="estadoDomiciliario" >
-                  <option value="" disabled selected>Seleccione un Estado</option>
-                  <option value="1">Activo</option>
-                  <option value="2">Inactivo</option>
-              </select>
-          </div>
-      </div>
-    {{-- campo estado --}}
+<div class="row mt-2">
+  {{-- campo estado --}}
+  <div class="form-group col-lg-6">
+      <label for="estadoDomiciliario" class="col-lg-3 control-label requerido">Estado</label>
+      <select class="form-control col-lg-9" id="estadoDomiciliario" name="estadoDomiciliario" >
+          <option value="" disabled selected>Seleccione un Estado</option>
+          <option value="1">Activo</option>
+          <option value="2">Inactivo</option>
+      </select>
   </div>
+  {{-- campo estado --}}
+  {{-- campo foto --}}
+  <div class="form-group col-lg-6">
+    <label for="fotoSeguridad" class="col-lg-3 control-label ">Foto</label>
+    <div class="custom-file col-lg-9">
+      <input  type="file" id="fotoSeguridad" name="fotoSeguridad" class="custom-file-input"  value="{{old('fotoSeguridad')}}" accept="image/*">
+      <label class="custom-file-label" for="fotoSeguridad" id="labelBorrable"></label>
+    </div>
+  </div>
+  {{-- campo foto --}}
 
-  <div class="col-lg-6">
-    <div class="col-lg-6 float-right">
-      <img src="{{asset("assets/$theme/dist/img/boxed.jpg")}}" alt="foto de mensajero" width="100" height="100" class="rounded border-bottom-0" id="blah">
-    </div>
-    <div class="col-lg-6 float-right">
-      {{-- campo foto --}}
-      <div class="form-group">
-        <label for="fotoSeguridad" class="col-lg-12 control-label ">Foto</label>
-        <div class="custom-file">
-          <input  type="file" id="fotoSeguridad" name="fotoSeguridad" class="custom-file-input"  value="{{old('fotoSeguridad')}}" accept="image/*">
-          <label class="custom-file-label" for="fotoSeguridad" id="labelBorrable"></label>
-        </div>
-      </div>
-      {{-- campo foto --}}
-    </div>
-  </div>
 </div>
 <!-- campo estado y cargar foto-->
 
 
 {{-- tomar foto --}}
-
-<div class="row">
-  <div class="col-lg-12 d-flex justify-content-center">
-      <!-- Stream video via webcam -->
-      <div class="video-wrap">
-      <video id="video" class="border border-info " playsinline autoplay></video>
-      </div>
-      <!-- Trigger canvas web API -->
-      <button id="snap" class="btn btn-info block">Capturar</button>
-
+<div class="d-flex justify-content-center bd-highlight mb-2 mt-3">
+  <div class="p-2 bd-highlight">
+    <!-- Stream video via webcam -->
+    <div class="video-wrap" style="vertical-align: inherit;">
+      <video id="video" class="rounded border-bottom-0 border border-info " playsinline autoplay></video>
+    </div>
+    <!-- Trigger canvas web API -->
+    <button id="snap" class="btn btn-info block" type="button">Capturar</button>
   </div>
-  <div style="display: none"">
-    <!-- Webcam video snapshot -->
-    <canvas id="canvas" width="200" height="170" class="border border-info"></canvas>
+  <div class="p-2 bd-highlight">
+    <div style="vertical-align: inherit;">
+      <!-- Webcam video snapshot -->
+      <img src="{{asset("assets/$theme/dist/img/boxed.jpg")}}" alt="foto de mensajero" width="200" height="170" class="rounded border-bottom-0 border border-info" id="blah">
+      <canvas id="canvas" width="200" height="170" class="border border-info" style="display: none"></canvas>
+    </div>
   </div>
-  
 </div>
 {{-- tomar foto --}}
-
 
 
 
@@ -153,6 +117,7 @@
   // Draw image
   var context = canvas.getContext('2d');
   snap.addEventListener("click", function() {
+    
     context.drawImage(video, 0, 0, 200, 170);
     /* Convertir la imagen a Base64 */
     var  dataUrl = canvas.toDataURL();
@@ -163,6 +128,7 @@
           enlace.href = dataUrl; 
           // Hacer click en él
           enlace.click();
+    
   });  
 </script>
 

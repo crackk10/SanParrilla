@@ -24,8 +24,11 @@ return new class extends Migration
             $table->foreign('domiciliario','fk_pedido_domiciliario')->references('id')->on('domiciliario')->onDelete('restrict')->onUpdate('restrict');         
             $table->unsignedBigInteger('tipoPago');
             $table->foreign('tipoPago','fk_pedido_tipoPago')->references('id')->on('tipo_pago')->onDelete('restrict')->onUpdate('restrict');         
+            $table->unsignedBigInteger('tipoPedido');
+            $table->foreign('tipoPedido','fk_pedido_tipoPedido')->references('id')->on('tipo_pedido')->onDelete('restrict')->onUpdate('restrict');        
             $table->unsignedBigInteger('estadoPedido');
-            $table->foreign('estadoPedido','fk_pedido_estadoPedido')->references('id')->on('estados')->onDelete('restrict')->onUpdate('restrict');         
+            $table->foreign('estadoPedido','fk_estado_estadoPedido')->references('id')->on('estados')->onDelete('restrict')->onUpdate('restrict');
+            $table->string('observacion', 200)->nullable();         
             $table->bigInteger('total')->nullable();
             $table->timestamps();
             $table->charset = 'utf8mb4';

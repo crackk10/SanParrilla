@@ -35,7 +35,8 @@ class ClienteRequest extends FormRequest
             'telefonoCliente'=>'required|digits_between:7,10|numeric',   
             'direccion'=>'max:20',   
             'barrio'=>'max:20',   
-            'documento'=>'max:15',   
+            'documento'=>'max:15',
+            'indicacion'=>'max:200',   
         ];   
     }
 
@@ -50,6 +51,7 @@ class ClienteRequest extends FormRequest
             'direccion.max'=>'La direccion tiene mas de 20 caracteres!',
             'barrio.max'=>'El barrio tiene mas de 20 caracteres!',
             'documento.max'=>'El documento tiene mas de 15 caracteres!',
+            'indicacion.max'=>'La indicacion tiene mas de 200 caracteres!',
             
 
         ];

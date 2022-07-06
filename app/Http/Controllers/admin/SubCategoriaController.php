@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ClienteRequest;
-use App\Models\cliente;
+use App\Http\Requests\SubCategoriaRequest;
+use App\Models\Categoria;
+use App\Models\SubCategoria;
 use Illuminate\Http\Request;
 
-class clienteController extends Controller
+class SubCategoriaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +17,7 @@ class clienteController extends Controller
      */
     public function index()
     {
-        return view('admin/cliente/index');
+         return view('admin/subCategoria/index');
     }
 
     /**
@@ -35,21 +36,17 @@ class clienteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store( ClienteRequest $request)
+    public function store(SubCategoriaRequest $request)
     {
+        //
         if ( auth()->user()->tipoUsuario=="1" &&  auth()->user()->estadoUsuario=="1"){ 
             if ($request->ajax()) { 
-                $cliente = new cliente();
-                $cliente->nombreCliente = $request->nombreCliente;
-                $cliente->apellidoCliente = $request->apellidoCliente;
-                $cliente->telefonoCliente = $request->telefonoCliente;
-                $cliente->direccion = $request->direccion;
-                $cliente->barrio = $request->barrio;
-                $cliente->documento = $request->documento;
-                $cliente->indicacion = $request->indicacion;
-                $cliente->save();
-
-                if ($cliente->save()) {
+                $subCategoria = new SubCategoria();
+                $subCategoria->nombreSubCategoriaPlato = $request->nombreSubCategoriaPlato;
+                $subCategoria-> categoria = $request->categoria;
+                $subCategoria->estadoSubCategoria = $request->estadoSubCategoria;
+                $subCategoria->save();
+                if ($subCategoria->save()) {
                     return response()->json(['success'=>'true']);
                 }else { 
                     return response()->json(['success'=>'false']);
@@ -59,16 +56,16 @@ class clienteController extends Controller
             }
         }else{
             return back();
-        }    
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\cliente  $cliente
+     * @param  \App\Models\SubCategoria  $subCategoria
      * @return \Illuminate\Http\Response
      */
-    public function show(cliente $cliente)
+    public function show(SubCategoria $subCategoria)
     {
         //
     }
@@ -76,27 +73,24 @@ class clienteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\cliente  $cliente
+     * @param  \App\Models\SubCategoria  $subCategoria
      * @return \Illuminate\Http\Response
      */
-    public function edit( $cliente)
+    public function edit( $subCategoria)
     {
         //
         if ( auth()->user()->tipoUsuario=="1" &&  auth()->user()->estadoUsuario=="1"){ 
-            
-            $detalleCliente=cliente::select()       
-            ->from('cliente')
-            ->where('cliente.id','=',"$cliente")
+            $detalleSubCategoria=SubCategoria::select()       
+            ->from('sub_categoria')
+            ->where('sub_categoria.id','=',"$subCategoria")
             ->get();
             /* return response()->json($detalleCliente);   */  
-
-            if ($detalleCliente){ 
-                return response()->json(['success'=>'true','data'=>$detalleCliente]);
+            if ($detalleSubCategoria){ 
+                return response()->json(['success'=>'true','data'=>$detalleSubCategoria]);
             }
             else{
                 return response()->json(['success'=>'false']);
             }
-
         }
         else{
             return back();
@@ -107,19 +101,16 @@ class clienteController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\cliente  $cliente
+     * @param  \App\Models\SubCategoria  $subCategoria
      * @return \Illuminate\Http\Response
      */
-    public function update(ClienteRequest $request,$cliente)
+    public function update(SubCategoriaRequest $request,  $subCategoria)
     {
-        //
         if ( auth()->user()->tipoUsuario=="1" &&  auth()->user()->estadoUsuario=="1"){ 
             if ($request->ajax()) {
-            
-                $registro=cliente::findOrFail($cliente);
+                $registro=SubCategoria::findOrFail($subCategoria);
                 $formulario=$request->all();
                 $resultado=$registro->fill($formulario)->save(); 
-                
                 if ($resultado) {
                 return response()->json(['success'=>'true']);
                 }else {
@@ -134,14 +125,13 @@ class clienteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\cliente  $cliente
+     * @param  \App\Models\SubCategoria  $subCategoria
      * @return \Illuminate\Http\Response
      */
-    public function destroy( $cliente)
+    public function destroy( $subCategoria)
     {
-        //
         if ( auth()->user()->tipoUsuario=="1" &&  auth()->user()->estadoUsuario=="1"){ 
-            $borrado=cliente::findOrFail($cliente);
+            $borrado=SubCategoria::findOrFail($subCategoria);
             $resultado=$borrado->delete();
             if ($resultado) {
             return response()->json(['success'=>'true']);
@@ -150,29 +140,41 @@ class clienteController extends Controller
             }
         }else{
             return back();
-        } 
-        
+        }
+    }
+
+    //consulta para rellenar el select de categoria en index
+    public function categoria (Categoria $transportadora)
+    {
+        $transportadora= Categoria::select()
+        ->from('categoria')
+        ->get();
+        return response()->json($transportadora);
     }
 
     public function listar(Request $request){
         if ( auth()->user()->tipoUsuario=="1" &&  auth()->user()->estadoUsuario=="1"){   
             if ($request->filtro!="0" && $request->buscar!="") {
-                $datos= cliente::select('cliente.*')
+                $datos= SubCategoria::select('sub_categoria.*','categoria.nombreCategoriaPlato' ,'estados.nombreEstado')
                 ->orderBy('created_at','desc')
-                ->from('cliente')
+                ->from('sub_categoria')
+                ->join('estados','estados.id','=','sub_categoria.estadoSubCategoria')
+                ->join('categoria','categoria.id','=','sub_categoria.categoria')
                 ->where([
                     ["$request->filtro",'LIKE',"$request->buscar%"]
                     ])
                 ->paginate(6);
-                return view('admin/cliente/includes/tabla')->with('datos',$datos);
+                return view('admin/subCategoria/includes/tabla')->with('datos',$datos);
                 
             }else
             {
-                $datos= cliente::select('cliente.*')
+                $datos= SubCategoria::select('sub_categoria.*','categoria.nombreCategoriaPlato','estados.nombreEstado')
                 ->orderBy('created_at','desc')
-                ->from('cliente')
+                ->from('sub_categoria')
+                ->join('estados','estados.id','=','sub_categoria.estadoSubCategoria')
+                ->join('categoria','categoria.id','=','sub_categoria.categoria')
                 ->paginate(6);
-                return view('admin/cliente/includes/tabla')->with('datos',$datos);
+                return view('admin/subCategoria/includes/tabla')->with('datos',$datos);
             }
         }else{
             return back();

@@ -42,6 +42,9 @@ class DomiciliarioController extends Controller
     public function store(DomiciliarioRequest $request)
     {
         //
+        $request->validate([
+        'fotoSeguridad' => 'required|',
+        ]);
         
         if ( auth()->user()->tipoUsuario=="1" &&  auth()->user()->estadoUsuario=="1"){ 
 

@@ -16,10 +16,9 @@ class tipoPedidoSeeder extends Seeder
     public function run()
     {
         $tipoPedido = [
-            'mesa',
-            'domicilio',
-            'credito',
-            'contrato',
+            'Mesa',
+            'Domicilio',
+            'Recoge',
         ];
         foreach($tipoPedido as $key => $value){
             DB::table('tipo_pedido')->insert([

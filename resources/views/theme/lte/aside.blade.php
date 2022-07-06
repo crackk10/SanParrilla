@@ -13,7 +13,12 @@
           <img src={{asset("assets/$theme/dist/img/user2-160x160.jpg")}}  class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">
+            @auth
+              {{ auth()->user()->name}}
+              {{ auth()->user()->lastName}}
+            @endauth
+          </a>
         </div>
       </div>
 
@@ -36,7 +41,7 @@
                with font-awesome or any other icon font library -->
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-people-arrows"></i>
+              <i class=" fas fa-people-arrows"></i>
               
               <p>
                 Personas
@@ -61,30 +66,46 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link ">
-              <i class="fas fa-utensils" aria-hidden="true"></i>
+            <a href="#" class="nav-link">
+              <i class=" fas fa-utensils"></i>
               <p>
                 Menú
-                <i class="fas fa-angle-left right"></i>
-                {{-- <span class="badge badge-info right">2</span> --}}
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
+            <ul class="nav nav-treeview" style="display: none;">
               <li class="nav-item">
-                <a href="../layout/top-nav.html" class="nav-link">
-                  <i class="fas fa-list"></i>
-                  <p>Categoria</p>
+                <a href="#" class="nav-link">
+                  <i class="fas fa-list nav-icon"></i>
+                  <p>
+                    Administracion
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
                 </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="{{route('categoria')}}" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Categoria</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="{{route('subCategoria')}}" class="nav-link">
+                      <i class="far fa-dot-circle nav-icon"></i>
+                      <p>Sub Categoria</p>
+                    </a>
+                  </li>
+                </ul>
               </li>
               <li class="nav-item">
-                <a href="../layout/top-nav-sidebar.html" class="nav-link ">
-                  <i class="fas fa-concierge-bell"></i>
+                <a href="#" class="nav-link">
+                  <i class="fas fa-concierge-bell nav-icon"></i>
                   <p>Plato</p>
                 </a>
               </li>
-
             </ul>
-          </li>   
+          </li>
+          <li class="nav-header">--San Parrilla--</li>  
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

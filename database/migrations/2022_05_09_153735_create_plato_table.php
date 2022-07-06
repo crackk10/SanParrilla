@@ -18,8 +18,10 @@ return new class extends Migration
             $table->string('nombrePlato',30);
             $table->bigInteger('precio');
             $table->string('descripcion', 200)->nullable();
-            $table->unsignedBigInteger('categoriaPlato');
-            $table->foreign('categoriaPlato','fk_plato_categoria')->references('id')->on('categoria')->onDelete('restrict')->onUpdate('restrict');         
+            $table->unsignedBigInteger('subCategoriaPlato');
+            $table->foreign('subCategoriaPlato','fk_plato_subCategoria')->references('id')->on('sub_categoria')->onDelete('restrict')->onUpdate('restrict');
+            $table->unsignedBigInteger('estadoPlato');
+            $table->foreign('estadoPlato','fk_estado_estadoPlato')->references('id')->on('estados')->onDelete('restrict')->onUpdate('restrict');                  
             $table->timestamps();
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_spanish_ci';

@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ClienteRequest;
-use App\Models\cliente;
+use App\Http\Requests\CategoriaRequest;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 
-class clienteController extends Controller
+class CategoriaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +16,8 @@ class clienteController extends Controller
      */
     public function index()
     {
-        return view('admin/cliente/index');
+        //
+        return view('admin/categoria/index');
     }
 
     /**
@@ -35,21 +36,15 @@ class clienteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store( ClienteRequest $request)
+    public function store(CategoriaRequest $request)
     {
         if ( auth()->user()->tipoUsuario=="1" &&  auth()->user()->estadoUsuario=="1"){ 
             if ($request->ajax()) { 
-                $cliente = new cliente();
-                $cliente->nombreCliente = $request->nombreCliente;
-                $cliente->apellidoCliente = $request->apellidoCliente;
-                $cliente->telefonoCliente = $request->telefonoCliente;
-                $cliente->direccion = $request->direccion;
-                $cliente->barrio = $request->barrio;
-                $cliente->documento = $request->documento;
-                $cliente->indicacion = $request->indicacion;
-                $cliente->save();
-
-                if ($cliente->save()) {
+                $categoria = new Categoria();
+                $categoria->nombreCategoriaPlato = $request->nombreCategoriaPlato;
+                $categoria->estadoCategoria = $request->estadoCategoria;
+                $categoria->save();
+                if ($categoria->save()) {
                     return response()->json(['success'=>'true']);
                 }else { 
                     return response()->json(['success'=>'false']);
@@ -59,16 +54,16 @@ class clienteController extends Controller
             }
         }else{
             return back();
-        }    
+        }
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\cliente  $cliente
+     * @param  \App\Models\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function show(cliente $cliente)
+    public function show(Categoria $categoria)
     {
         //
     }
@@ -76,27 +71,24 @@ class clienteController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\cliente  $cliente
+     * @param  \App\Models\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function edit( $cliente)
+    public function edit( $categoria)
     {
         //
         if ( auth()->user()->tipoUsuario=="1" &&  auth()->user()->estadoUsuario=="1"){ 
-            
-            $detalleCliente=cliente::select()       
-            ->from('cliente')
-            ->where('cliente.id','=',"$cliente")
+            $detalleCategoria=Categoria::select()       
+            ->from('categoria')
+            ->where('categoria.id','=',"$categoria")
             ->get();
             /* return response()->json($detalleCliente);   */  
-
-            if ($detalleCliente){ 
-                return response()->json(['success'=>'true','data'=>$detalleCliente]);
+            if ($detalleCategoria){ 
+                return response()->json(['success'=>'true','data'=>$detalleCategoria]);
             }
             else{
                 return response()->json(['success'=>'false']);
             }
-
         }
         else{
             return back();
@@ -107,19 +99,16 @@ class clienteController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\cliente  $cliente
+     * @param  \App\Models\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function update(ClienteRequest $request,$cliente)
+    public function update(CategoriaRequest $request,  $categoria)
     {
-        //
         if ( auth()->user()->tipoUsuario=="1" &&  auth()->user()->estadoUsuario=="1"){ 
             if ($request->ajax()) {
-            
-                $registro=cliente::findOrFail($cliente);
+                $registro=Categoria::findOrFail($categoria);
                 $formulario=$request->all();
                 $resultado=$registro->fill($formulario)->save(); 
-                
                 if ($resultado) {
                 return response()->json(['success'=>'true']);
                 }else {
@@ -134,14 +123,13 @@ class clienteController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\cliente  $cliente
+     * @param  \App\Models\Categoria  $categoria
      * @return \Illuminate\Http\Response
      */
-    public function destroy( $cliente)
+    public function destroy($categoria)
     {
-        //
         if ( auth()->user()->tipoUsuario=="1" &&  auth()->user()->estadoUsuario=="1"){ 
-            $borrado=cliente::findOrFail($cliente);
+            $borrado=Categoria::findOrFail($categoria);
             $resultado=$borrado->delete();
             if ($resultado) {
             return response()->json(['success'=>'true']);
@@ -150,29 +138,29 @@ class clienteController extends Controller
             }
         }else{
             return back();
-        } 
-        
+        }
     }
-
     public function listar(Request $request){
         if ( auth()->user()->tipoUsuario=="1" &&  auth()->user()->estadoUsuario=="1"){   
             if ($request->filtro!="0" && $request->buscar!="") {
-                $datos= cliente::select('cliente.*')
+                $datos= Categoria::select('categoria.*','estados.nombreEstado')
                 ->orderBy('created_at','desc')
-                ->from('cliente')
+                ->from('categoria')
+                ->join('estados','estados.id','=','categoria.estadoCategoria')
                 ->where([
                     ["$request->filtro",'LIKE',"$request->buscar%"]
                     ])
                 ->paginate(6);
-                return view('admin/cliente/includes/tabla')->with('datos',$datos);
+                return view('admin/categoria/includes/tabla')->with('datos',$datos);
                 
             }else
             {
-                $datos= cliente::select('cliente.*')
+                $datos= Categoria::select('categoria.*','estados.nombreEstado')
                 ->orderBy('created_at','desc')
-                ->from('cliente')
+                ->from('categoria')
+                ->join('estados','estados.id','=','categoria.estadoCategoria')
                 ->paginate(6);
-                return view('admin/cliente/includes/tabla')->with('datos',$datos);
+                return view('admin/categoria/includes/tabla')->with('datos',$datos);
             }
         }else{
             return back();
