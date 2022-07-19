@@ -88,4 +88,6 @@ require __DIR__.'/auth.php';
         'destroy' => 'plato.eliminar',
     ])->middleware('auth'); 
     Route::get('plato.listar{page?}','admin\platoController@listar')->name('plato.listar');
+    Route::get('plato.subCategoria','admin\platoController@subCategoria')->name('plato.subCategoria');
+    
 /* rutas de plato */

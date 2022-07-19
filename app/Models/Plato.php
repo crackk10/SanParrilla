@@ -9,6 +9,6 @@ class Plato extends Model
 {
     protected $connection = 'mysql';
     protected $table = "plato";
-    protected $fillable = ['id','nombrePlato','precio','descripcion','categoriaPlato','estadoPlato',];
+    protected $fillable = ['id','nombrePlato','precio','descripcion','subCategoriaPlato','estadoPlato','fotoPlato'];
 
 }

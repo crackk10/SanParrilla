@@ -32,7 +32,7 @@ class PlatoRequest extends FormRequest
             'nombrePlato'=>'required |max:30',
             'precio'=>'required|numeric',
             'descripion'=>'max:200',
-            'categoriaPlato'=>'required',
+            'subCategoriaPlato'=>'required',
             'estadoPlato'=>'required',
         ];   
     }
@@ -44,7 +44,7 @@ class PlatoRequest extends FormRequest
             'precio.required'=>'El precio del plato es obligatorio!',
             'precio.numeric'=>'El precio debe ser solo numeros!',
             'descripcion.max'=>'La descripcion tiene mas de 200 caracteres!',
-            'categoriaPlato.required'=>'La categoria del plato es obligatorio!',
+            'subCategoriaPlato.required'=>'La categoria del plato es obligatorio!',
             'estadoPlato.required'=>'El estado del plato es obligatorio!',       
         ];
     }

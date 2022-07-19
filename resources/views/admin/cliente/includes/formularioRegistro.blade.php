@@ -47,12 +47,12 @@
 </div>
 <!-- campo direccion y barrio -->
 
-<!-- campo observaciones -->
+<!-- campo indicaciones -->
     <div class="row mt-2">
         <div class="form-group col-lg-12">
             <label for="indicacion" class="col-lg-2 control-label ">Indicacion</label>
             <textarea name="indicacion" id="indicacion" class="form-control col-lg-10" cols="12" rows="2"  value="{{old('indicacion')}}"></textarea>
         </div> 
     </div> 
-<!-- /campo observaciones -->
+<!-- /campo indicaciones -->
 <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">

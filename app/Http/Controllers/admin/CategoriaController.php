@@ -5,6 +5,8 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoriaRequest;
 use App\Models\Categoria;
+use App\Models\Plato;
+use App\Models\SubCategoria;
 use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
@@ -106,6 +108,16 @@ class CategoriaController extends Controller
     {
         if ( auth()->user()->tipoUsuario=="1" &&  auth()->user()->estadoUsuario=="1"){ 
             if ($request->ajax()) {
+                /* modifico todas las sub_categorias   */ 
+                SubCategoria::where('categoria', $categoria)
+                ->update(['estadoSubCategoria' => $request->estadoCategoria]);
+                /* modifico todas los platos   */ 
+                Plato::join('sub_categoria','sub_categoria.id','=','plato.subCategoriaPlato')
+                ->join('categoria','categoria.id','=','sub_categoria.categoria')->
+                where('categoria.id', $categoria)
+                ->update(['estadoPlato' => $request->estadoCategoria]);
+
+                /* modifico las categorias */
                 $registro=Categoria::findOrFail($categoria);
                 $formulario=$request->all();
                 $resultado=$registro->fill($formulario)->save(); 

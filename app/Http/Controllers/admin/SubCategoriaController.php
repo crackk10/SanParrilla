@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SubCategoriaRequest;
 use App\Models\Categoria;
+use App\Models\Plato;
 use App\Models\SubCategoria;
 use Illuminate\Http\Request;
 
@@ -108,6 +109,9 @@ class SubCategoriaController extends Controller
     {
         if ( auth()->user()->tipoUsuario=="1" &&  auth()->user()->estadoUsuario=="1"){ 
             if ($request->ajax()) {
+                /* modifico todas las sub_categorias   */ 
+                Plato::where('subCategoriaPlato', $subCategoria)
+                ->update(['estadoPlato' => $request->estadoSubCategoria]);
                 $registro=SubCategoria::findOrFail($subCategoria);
                 $formulario=$request->all();
                 $resultado=$registro->fill($formulario)->save(); 
