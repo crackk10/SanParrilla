@@ -14,10 +14,10 @@
         <!-- Left navbar links -->
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            <a class="nav-link sidebar-toggle-btn" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
           </li>
           <li class="nav-item">
-            <a href="index3.html" class="nav-link">Inicio</a>
+            <a href="{{route('pedido')}}" class="nav-link">Inicio</a>
           </li>
           <li class="nav-item">
             <a href="#" class="nav-link">Domicilios</a>

@@ -18,7 +18,7 @@ class SubCategoriaController extends Controller
      */
     public function index()
     {
-         return view('admin/subCategoria/index');
+        return view('admin/subCategoria/index');
     }
 
     /**
@@ -40,22 +40,22 @@ class SubCategoriaController extends Controller
     public function store(SubCategoriaRequest $request)
     {
         //
-        if ( auth()->user()->tipoUsuario=="1" &&  auth()->user()->estadoUsuario=="1"){ 
-            if ($request->ajax()) { 
+        if (auth()->user()->tipoUsuario == "1" &&  auth()->user()->estadoUsuario == "1") {
+            if ($request->ajax()) {
                 $subCategoria = new SubCategoria();
                 $subCategoria->nombreSubCategoriaPlato = $request->nombreSubCategoriaPlato;
-                $subCategoria-> categoria = $request->categoria;
+                $subCategoria->categoria = $request->categoria;
                 $subCategoria->estadoSubCategoria = $request->estadoSubCategoria;
                 $subCategoria->save();
                 if ($subCategoria->save()) {
-                    return response()->json(['success'=>'true']);
-                }else { 
-                    return response()->json(['success'=>'false']);
+                    return response()->json(['success' => 'true']);
+                } else {
+                    return response()->json(['success' => 'false']);
                 }
-            }else{
+            } else {
                 return back();
             }
-        }else{
+        } else {
             return back();
         }
     }
@@ -77,23 +77,21 @@ class SubCategoriaController extends Controller
      * @param  \App\Models\SubCategoria  $subCategoria
      * @return \Illuminate\Http\Response
      */
-    public function edit( $subCategoria)
+    public function edit($subCategoria)
     {
         //
-        if ( auth()->user()->tipoUsuario=="1" &&  auth()->user()->estadoUsuario=="1"){ 
-            $detalleSubCategoria=SubCategoria::select()       
-            ->from('sub_categoria')
-            ->where('sub_categoria.id','=',"$subCategoria")
-            ->get();
-            /* return response()->json($detalleCliente);   */  
-            if ($detalleSubCategoria){ 
-                return response()->json(['success'=>'true','data'=>$detalleSubCategoria]);
+        if (auth()->user()->tipoUsuario == "1" &&  auth()->user()->estadoUsuario == "1") {
+            $detalleSubCategoria = SubCategoria::select()
+                ->from('sub_categoria')
+                ->where('sub_categoria.id', '=', "$subCategoria")
+                ->get();
+            /* return response()->json($detalleCliente);   */
+            if ($detalleSubCategoria) {
+                return response()->json(['success' => 'true', 'data' => $detalleSubCategoria]);
+            } else {
+                return response()->json(['success' => 'false']);
             }
-            else{
-                return response()->json(['success'=>'false']);
-            }
-        }
-        else{
+        } else {
             return back();
         }
     }
@@ -107,22 +105,22 @@ class SubCategoriaController extends Controller
      */
     public function update(SubCategoriaRequest $request,  $subCategoria)
     {
-        if ( auth()->user()->tipoUsuario=="1" &&  auth()->user()->estadoUsuario=="1"){ 
+        if (auth()->user()->tipoUsuario == "1" &&  auth()->user()->estadoUsuario == "1") {
             if ($request->ajax()) {
-                /* modifico todas las sub_categorias   */ 
+                /* modifico todas las sub_categorias   */
                 Plato::where('subCategoriaPlato', $subCategoria)
-                ->update(['estadoPlato' => $request->estadoSubCategoria]);
-                $registro=SubCategoria::findOrFail($subCategoria);
-                $formulario=$request->all();
-                $resultado=$registro->fill($formulario)->save(); 
+                    ->update(['estadoPlato' => $request->estadoSubCategoria]);
+                $registro = SubCategoria::findOrFail($subCategoria);
+                $formulario = $request->all();
+                $resultado = $registro->fill($formulario)->save();
                 if ($resultado) {
-                return response()->json(['success'=>'true']);
-                }else {
-                return response()->json(['success'=>'false']);
+                    return response()->json(['success' => 'true']);
+                } else {
+                    return response()->json(['success' => 'false']);
                 }
-            }  
-        }else{
-              return back();
+            }
+        } else {
+            return back();
         }
     }
 
@@ -132,55 +130,54 @@ class SubCategoriaController extends Controller
      * @param  \App\Models\SubCategoria  $subCategoria
      * @return \Illuminate\Http\Response
      */
-    public function destroy( $subCategoria)
+    public function destroy($subCategoria)
     {
-        if ( auth()->user()->tipoUsuario=="1" &&  auth()->user()->estadoUsuario=="1"){ 
-            $borrado=SubCategoria::findOrFail($subCategoria);
-            $resultado=$borrado->delete();
+        if (auth()->user()->tipoUsuario == "1" &&  auth()->user()->estadoUsuario == "1") {
+            $borrado = SubCategoria::findOrFail($subCategoria);
+            $resultado = $borrado->delete();
             if ($resultado) {
-            return response()->json(['success'=>'true']);
-            }else {
-            return response()->json(['success'=>'false']);
+                return response()->json(['success' => 'true']);
+            } else {
+                return response()->json(['success' => 'false']);
             }
-        }else{
+        } else {
             return back();
         }
     }
 
     //consulta para rellenar el select de categoria en index
-    public function categoria (Categoria $transportadora)
+    public function categoria(Categoria $categoria)
     {
-        $transportadora= Categoria::select()
-        ->from('categoria')
-        ->get();
-        return response()->json($transportadora);
+        $categoria = Categoria::select()
+            ->from('categoria')
+            ->get();
+        return response()->json($categoria);
     }
 
-    public function listar(Request $request){
-        if ( auth()->user()->tipoUsuario=="1" &&  auth()->user()->estadoUsuario=="1"){   
-            if ($request->filtro!="0" && $request->buscar!="") {
-                $datos= SubCategoria::select('sub_categoria.*','categoria.nombreCategoriaPlato' ,'estados.nombreEstado')
-                ->orderBy('created_at','desc')
-                ->from('sub_categoria')
-                ->join('estados','estados.id','=','sub_categoria.estadoSubCategoria')
-                ->join('categoria','categoria.id','=','sub_categoria.categoria')
-                ->where([
-                    ["$request->filtro",'LIKE',"$request->buscar%"]
+    public function listar(Request $request)
+    {
+        if (auth()->user()->tipoUsuario == "1" &&  auth()->user()->estadoUsuario == "1") {
+            if ($request->filtro != "0" && $request->buscar != "") {
+                $datos = SubCategoria::select('sub_categoria.*', 'categoria.nombreCategoriaPlato', 'estados.nombreEstado')
+                    ->orderBy('created_at', 'desc')
+                    ->from('sub_categoria')
+                    ->join('estados', 'estados.id', '=', 'sub_categoria.estadoSubCategoria')
+                    ->join('categoria', 'categoria.id', '=', 'sub_categoria.categoria')
+                    ->where([
+                        ["$request->filtro", 'LIKE', "$request->buscar%"]
                     ])
-                ->paginate(6);
-                return view('admin/subCategoria/includes/tabla')->with('datos',$datos);
-                
-            }else
-            {
-                $datos= SubCategoria::select('sub_categoria.*','categoria.nombreCategoriaPlato','estados.nombreEstado')
-                ->orderBy('created_at','desc')
-                ->from('sub_categoria')
-                ->join('estados','estados.id','=','sub_categoria.estadoSubCategoria')
-                ->join('categoria','categoria.id','=','sub_categoria.categoria')
-                ->paginate(6);
-                return view('admin/subCategoria/includes/tabla')->with('datos',$datos);
+                    ->paginate(6);
+                return view('admin/subCategoria/includes/tabla')->with('datos', $datos);
+            } else {
+                $datos = SubCategoria::select('sub_categoria.*', 'categoria.nombreCategoriaPlato', 'estados.nombreEstado')
+                    ->orderBy('created_at', 'desc')
+                    ->from('sub_categoria')
+                    ->join('estados', 'estados.id', '=', 'sub_categoria.estadoSubCategoria')
+                    ->join('categoria', 'categoria.id', '=', 'sub_categoria.categoria')
+                    ->paginate(6);
+                return view('admin/subCategoria/includes/tabla')->with('datos', $datos);
             }
-        }else{
+        } else {
             return back();
         }
     }

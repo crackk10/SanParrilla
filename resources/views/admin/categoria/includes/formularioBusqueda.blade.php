@@ -9,7 +9,7 @@
         </div>
         <div class="form-group col-lg-6">
             <label for="buscar" class="control-label col-lg-3">Buscar</label>
-            <input type="text" value="" name="buscar" id="buscar" class="form-control col-lg-9" placeholder="Buscar Categoria">
+            <input type="search" value="" name="buscar" id="buscar" class="form-control col-lg-9" placeholder="Buscar Categoria" >
         </div> 
-    </div>       
+    </div>    
 </form>

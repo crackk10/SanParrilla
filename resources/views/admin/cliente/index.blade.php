@@ -77,12 +77,12 @@ Clientes
   });
   /* buscar */
   $("#buscar").keyup(function (evento) {
-    buscar(urlListar);
+    var largoFiltro = $("#buscar").val();
+    if (largoFiltro.length>=6) {
+      buscar(urlListar);
+    }
   });
-  /* filtro */
-  $('#filtro').on('change',function(){                                    
-    buscar(urlListar);
-  });
+
   /* paginacion */
   $(document).on("click",".pagination li a",function(e){
     e.preventDefault();   

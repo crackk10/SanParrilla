@@ -43,10 +43,10 @@ class DomiciliarioController extends Controller
     {
         //
         $request->validate([
-        'fotoSeguridad' => 'required|',
+            'fotoSeguridad' => 'required|',
         ]);
-        
-        if ( auth()->user()->tipoUsuario=="1" &&  auth()->user()->estadoUsuario=="1"){ 
+
+        if (auth()->user()->tipoUsuario == "1" &&  auth()->user()->estadoUsuario == "1") {
 
             /* Cargar archivos forma normal laravel */
             /* $imagenes = $request->file('fotoSeguridad')->store('public/imagenes');
@@ -55,34 +55,32 @@ class DomiciliarioController extends Controller
 
             /* cargar imagenes con plugin para redimencionar imagenes */
             /* al nombre original del archivo le agrego 10 caracteres random */
-            $nombre =Str::Random(5) . date('YmdHis') . $request->file('fotoSeguridad')->getClientOriginalName();
+            $nombre = Str::Random(5) . date('YmdHis') . $request->file('fotoSeguridad')->getClientOriginalName();
             /* selecciono la ruta donde queda guardada la imagen con su nombre */
-            $url = storage_path() . '\app\public\imagenes/' .$nombre;
-           
+            $url = storage_path() . '\app\public\imagenes/' . $nombre;
+
             /*   redimenciono y  guardo en el servidor independientedel guardado en la bd */
-            Image::make($request->file('fotoSeguridad'))->
-                    resize(300, null, function ($constraint) { $constraint->aspectRatio();})->
-                    save($url);
-            
-            if ($request->ajax()) { 
+            Image::make($request->file('fotoSeguridad'))->resize(300, 200)->save($url);
+
+            if ($request->ajax()) {
                 $domiciliario = new Domiciliario();
                 $domiciliario->nombreDomiciliario = $request->nombreDomiciliario;
                 $domiciliario->apellidoDomiciliario = $request->apellidoDomiciliario;
                 $domiciliario->telefonoDomiciliario = $request->telefonoDomiciliario;
-                $domiciliario->fotoSeguridad = '/storage/imagenes/'.$nombre; //guardo la url en la bd
+                $domiciliario->fotoSeguridad = '/storage/imagenes/' . $nombre; //guardo la url en la bd
                 $domiciliario->estadoDomiciliario = $request->estadoDomiciliario;
                 $domiciliario->documentoDomiciliario = $request->documentoDomiciliario;
                 $domiciliario->save();
 
                 if ($domiciliario->save()) {
-                    return response()->json(['success'=>'true']);
-                }else { 
-                    return response()->json(['success'=>'false']);
+                    return response()->json(['success' => 'true']);
+                } else {
+                    return response()->json(['success' => 'false']);
                 }
-            }else{
+            } else {
                 return back();
             }
-        }else{
+        } else {
             return back();
         }
     }
@@ -104,26 +102,23 @@ class DomiciliarioController extends Controller
      * @param  \App\Models\Domiciliario  $domiciliario
      * @return \Illuminate\Http\Response
      */
-    public function edit( $domiciliario)
+    public function edit($domiciliario)
     {
         //
-        if ( auth()->user()->tipoUsuario=="1" &&  auth()->user()->estadoUsuario=="1"){            
-            $detalleDomiciliario=Domiciliario::select()       
-            ->from('domiciliario')
-            ->where('domiciliario.id','=',"$domiciliario")
-            ->get();
+        if (auth()->user()->tipoUsuario == "1" &&  auth()->user()->estadoUsuario == "1") {
+            $detalleDomiciliario = Domiciliario::select()
+                ->from('domiciliario')
+                ->where('domiciliario.id', '=', "$domiciliario")
+                ->get();
             /* decodifico la respuesta para modificar el campo de la foto */
             $array = json_decode($detalleDomiciliario, true);
-            $array[0]["fotoSeguridad"]=  asset($array[0]["fotoSeguridad"]);
-            if ($detalleDomiciliario){ 
-                return response()->json(['success'=>'true','data'=>$array]);
+            $array[0]["fotoSeguridad"] =  asset($array[0]["fotoSeguridad"]);
+            if ($detalleDomiciliario) {
+                return response()->json(['success' => 'true', 'data' => $array]);
+            } else {
+                return response()->json(['success' => 'false']);
             }
-            else{
-                return response()->json(['success'=>'false']);
-            }
-
-        }
-        else{
+        } else {
             return back();
         }
     }
@@ -135,33 +130,31 @@ class DomiciliarioController extends Controller
      * @param  \App\Models\Domiciliario  $domiciliario
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Domiciliario  $domiciliario)
+    public function update(Request $request, Domiciliario  $domiciliario)
     {
         //
-        $formulario=$request->all();
+        $formulario = $request->all();
         if ($request->hasFile('fotoSeguridad')) {
             /* elimino la imagen anterior */
-            $url = str_replace('storage','public',$domiciliario->fotoSeguridad);
+            $url = str_replace('storage', 'public', $domiciliario->fotoSeguridad);
             Storage::delete($url);
             /* cargar imagenes con plugin para redimencionar imagenes */
             /* al nombre original del archivo le agrego 10 caracteres random */
-            $nombre =Str::Random(5) . date('YmdHis') . $request->file('fotoSeguridad')->getClientOriginalName();
+            $nombre = Str::Random(5) . date('YmdHis') . $request->file('fotoSeguridad')->getClientOriginalName();
             /* selecciono la ruta donde queda guardada la imagen con su nombre */
-            $urlNuevo = storage_path() . '\app\public\imagenes/' .$nombre;
-           
+            $urlNuevo = storage_path() . '\app\public\imagenes/' . $nombre;
+
             /*   redimenciono y  guardo en el servidor independientedel guardado en la bd */
-            Image::make($request->file('fotoSeguridad'))->
-                    resize(300, null, function ($constraint) { $constraint->aspectRatio();})->
-                    save($urlNuevo);
-            $formulario["fotoSeguridad"] = '/storage/imagenes/'.$nombre; //guardo la url en la bd
+            Image::make($request->file('fotoSeguridad'))->resize(300, 200)->save($urlNuevo);
+            $formulario["fotoSeguridad"] = '/storage/imagenes/' . $nombre; //guardo la url en la bd
         }
-        
-        $resultado=$domiciliario->fill($formulario)->save(); 
-        
+
+        $resultado = $domiciliario->fill($formulario)->save();
+
         if ($resultado) {
-        return response()->json(['success'=>'true']);
-        }else {
-        return response()->json(['success'=>'false']);
+            return response()->json(['success' => 'true']);
+        } else {
+            return response()->json(['success' => 'false']);
         }
     }
 
@@ -174,46 +167,45 @@ class DomiciliarioController extends Controller
     public function destroy(Domiciliario $domiciliario)
     {
         //
-        if ( auth()->user()->tipoUsuario=="1" &&  auth()->user()->estadoUsuario=="1"){
+        if (auth()->user()->tipoUsuario == "1" &&  auth()->user()->estadoUsuario == "1") {
             /* Elimino archivo del servidor */
-            $url = str_replace('storage','public',$domiciliario->fotoSeguridad);
-            Storage::delete($url); 
+            $url = str_replace('storage', 'public', $domiciliario->fotoSeguridad);
+            Storage::delete($url);
             /* Elimino registro de la bd */
-           
-            $resultado=$domiciliario->delete();
+
+            $resultado = $domiciliario->delete();
             if ($resultado) {
-            return response()->json(['success'=>'true']);
-            }else {
-            return response()->json(['success'=>'false']);
+                return response()->json(['success' => 'true']);
+            } else {
+                return response()->json(['success' => 'false']);
             }
-        }else{
+        } else {
             return back();
         }
     }
 
-    public function listar(Request $request){
-        if ( auth()->user()->tipoUsuario=="1" &&  auth()->user()->estadoUsuario=="1"){   
-            if ($request->filtro!="0" && $request->buscar!="") {
-                $datos= Domiciliario::select('domiciliario.*','estados.nombreEstado')
-                ->orderBy('created_at','desc')
-                ->from('domiciliario')
-                ->join('estados','estados.id','=','domiciliario.estadoDomiciliario')
-                ->where([
-                    ["$request->filtro",'LIKE',"$request->buscar%"]
+    public function listar(Request $request)
+    {
+        if (auth()->user()->tipoUsuario == "1" &&  auth()->user()->estadoUsuario == "1") {
+            if ($request->filtro != "0" && $request->buscar != "") {
+                $datos = Domiciliario::select('domiciliario.*', 'estados.nombreEstado')
+                    ->orderBy('created_at', 'desc')
+                    ->from('domiciliario')
+                    ->join('estados', 'estados.id', '=', 'domiciliario.estadoDomiciliario')
+                    ->where([
+                        ["$request->filtro", 'LIKE', "$request->buscar%"]
                     ])
-                ->paginate(6);
-                return view('admin/domiciliario/includes/tabla')->with('datos',$datos);
-                
-            }else
-            {
-                $datos= Domiciliario::select('domiciliario.*','estados.nombreEstado')
-                ->orderBy('created_at','desc')
-                ->from('domiciliario')
-                ->join('estados','estados.id','=','domiciliario.estadoDomiciliario')
-                ->paginate(6);
-                return view('admin/domiciliario/includes/tabla')->with('datos',$datos);
+                    ->paginate(6);
+                return view('admin/domiciliario/includes/tabla')->with('datos', $datos);
+            } else {
+                $datos = Domiciliario::select('domiciliario.*', 'estados.nombreEstado')
+                    ->orderBy('created_at', 'desc')
+                    ->from('domiciliario')
+                    ->join('estados', 'estados.id', '=', 'domiciliario.estadoDomiciliario')
+                    ->paginate(6);
+                return view('admin/domiciliario/includes/tabla')->with('datos', $datos);
             }
-        }else{
+        } else {
             return back();
         }
     }
