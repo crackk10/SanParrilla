@@ -9,6 +9,7 @@ Inicio
 <script src="{{asset("assets/scripts/admin/pedido/rellenarSelectTipoPedido.js")}}"></script> 
 <script src="{{asset("assets/scripts/admin/pedido/addCarrito.js")}}"></script> 
 <script src="{{asset("assets/scripts/admin/pedido/eliminarPlatoCarrito.js")}}"></script> 
+<script src="{{asset("assets/scripts/admin/pedido/eliminarAdicionalCarrito.js")}}"></script> 
 <script src="{{asset("assets/scripts/admin/pedido/vaciarCarrito.js")}}"></script> 
 <script src="{{asset("assets/scripts/buscar.js")}}"></script> 
 <script src="{{asset("assets/scripts/eliminar.js")}}"></script> 
@@ -52,6 +53,7 @@ Inicio
   const urlAddCarrito = "{{route('pedido.addPlatoCarrito')}}";
   const urlEliminarCarrito = "{{route('pedido.eliminarPlatoCarrito')}}";
   const urlVaciarCarrito = "{{route('pedido.vaciarCarrito')}}";
+  const urlEliminarAdicionalCarrito = "{{route('pedido.eliminarAdicionalCarrito')}}";
   var formulario;
   $(document).ready(function () {
     var urlTipoPago = "{{route('pedido.tipoPago')}}";
@@ -95,15 +97,20 @@ Inicio
   $(document).on("submit",".formularioCarrito",function(e){
     e.preventDefault();
     $("#cerrarModalPlatos").trigger('click');
-    var data = $(this).serialize();
-    addPlatoCarrito(data,urlAddCarrito,token, cantidadPlatos);
+    var formulario = $(this);
+    /* agrego todos los input que esten cheked al formulario    */                          
+  $('input[data-adicionales]:checked').each(function() {
+    formulario.append($(this));
+  })    
+  var data = formulario.serialize(); 
+    addPlatoCarrito(data,urlAddCarrito,token);
   });
   /* eliminar platos del carrito */
   $(document).on("click",".btnEliminarPlatoCarrito",function(e){
     e.preventDefault();
     /* session_destoy(); */
     var data ={nombre: $(this).attr('id')}
-    eliminarPlatoCarrito(data,urlEliminarCarrito,token, cantidadPlatos);  
+    eliminarPlatoCarrito(data,urlEliminarCarrito,token);  
   });
   /* vaciar el carrito */
   $(document).on("click","#vaciarCarrito",function(e){
@@ -112,6 +119,16 @@ Inicio
     var data =null;   
     $('#cantidadPlatos').html("0");
     vaciarCarrito(data,urlVaciarCarrito,token);  
+  });
+
+    /* eliminar adionales del carrito */
+  $(document).on("click",".btnEliminarAdicionalCarrito",function(e){
+    e.preventDefault();
+    /* session_destoy(); */
+    var data ={ nombreAdicional : $(this).attr('id'),
+                nombrePlato : $(this).attr('name')
+              }
+    eliminarAdicionalCarrito(data,urlEliminarAdicionalCarrito,token);  
   });
 </script>
 @endsection

@@ -17,8 +17,8 @@ function addPlatoCarrito(datos,urlFormulario,token, ){
         var total=$('#totalCarrito').html();
         $('#total').val(total);
         /* cuento las filas de la tabla y le asigno el valor al icono del carrito */
-        let filas = $("#tablaPlatosFormularioRegistro").find('tbody tr').length;  
-        $('#cantidadPlatos').html(filas-1);
+        let filas = $(".enCarrito").length;  
+        $('#cantidadPlatos').html(filas);
       },700); 
     },
     error: function (data)

@@ -1,4 +1,4 @@
-function eliminarPlatoCarrito(datos,urlFormulario,token, ){ 
+function eliminarAdicionalCarrito(datos,urlFormulario,token, ){ 
   $.ajax({                        
     type: "post",
     headers: {'X-CSRF-TOKEN':token},                

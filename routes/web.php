@@ -91,6 +91,20 @@ Route::get('plato.listar{page?}', 'admin\platoController@listar')->name('plato.l
 Route::get('plato.subCategoria', 'admin\platoController@subCategoria')->name('plato.subCategoria');
 
 /* rutas de plato */
+/* rutas de adicional */
+Route::resource('adicional', App\Http\Controllers\admin\AdicionalController::class)->names([
+    'index' => 'adicional',
+    'create' => 'adicional.crear',
+    'store' => 'adicional.guardar',
+    'show' => 'adicional.detalle',
+    'edit' => 'adicional.editar',
+    'update' => 'adicional.actualizar',
+    'destroy' => 'adicional.eliminar',
+])->middleware('auth');
+Route::get('adicional.listar{page?}', 'admin\adicionalController@listar')->name('adicional.listar');
+Route::get('adicional.subCategoria', 'admin\adicionalController@subCategoria')->name('adicional.subCategoria');
+
+/* rutas de adicional */
 
 /* rutas pedido */
 Route::resource('pedido', App\Http\Controllers\admin\pedidoController::class)->names([
@@ -105,6 +119,7 @@ Route::resource('pedido', App\Http\Controllers\admin\pedidoController::class)->n
 Route::get('pedido.buscarPlatos', 'admin\pedidoController@buscarPlatos')->name('pedido.buscarPlatos');
 Route::post('pedido.addPlatoCarrito', 'admin\pedidoController@addPlatoCarrito')->name('pedido.addPlatoCarrito');
 Route::post('pedido.eliminarPlatoCarrito', 'admin\pedidoController@eliminarPlatoCarrito')->name('pedido.eliminarPlatoCarrito');
+Route::post('pedido.eliminarAdicionalCarrito', 'admin\pedidoController@eliminarAdicionalCarrito')->name('pedido.eliminarAdicionalCarrito');
 Route::post('pedido.vaciarCarrito', 'admin\pedidoController@vaciarCarrito')->name('pedido.vaciarCarrito');
 Route::get('pedido.cliente{page?}', 'admin\pedidoController@cliente')->name('pedido.cliente');
 Route::get('pedido.tipoPago', 'admin\pedidoController@tipoPago')->name('pedido.tipoPago');

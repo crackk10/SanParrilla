@@ -23,7 +23,7 @@
       </div>
 
       <!-- SidebarSearch Form -->
-      <div class="form-inline">
+      {{-- <div class="form-inline">
         <div class="input-group" data-widget="sidebar-search">
           <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
           <div class="input-group-append">
@@ -32,7 +32,7 @@
             </button>
           </div>
         </div>
-      </div>
+      </div> --}}
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -100,7 +100,13 @@
               <li class="nav-item">
                 <a href="{{route('plato')}}" class="nav-link">
                   <i class="fas fa-concierge-bell nav-icon"></i>
-                  <p>Plato</p>
+                  <p>Platos</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{route('adicional')}}" class="nav-link">
+                  <i class="fas fa-concierge-bell nav-icon"></i>
+                  <p>Adicionales</p>
                 </a>
               </li>
             </ul>

@@ -9,31 +9,61 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        @foreach ($datos as $item)
-          @if ($item->estadoPlato=="1")        
-          <tr>     
-            <td style="width : 300px; height:200px;"><img src="{{ asset($item->fotoPlato) }}" class="img-thumbnail" alt="Imagen Plato"  width="300" height="300"></td>
+      @foreach ($datos as $item)
+        @if ($item->estadoPlato=="1")
+              
+          <tr data-widget="expandable-table" aria-expanded="false">     
+            <td >
+              <img src="{{ asset($item->fotoPlato) }}" class="img-thumbnail" alt="Imagen Plato">
+            </td>
             <td><Strong>${{$item->precio}}</Strong></td>
-            <td style="width : 100 ">
+            <td>
               <strong>{{$item->nombrePlato}}</strong>
               <br>
-              {{$item->descripcion}}</td>
-            <td style="width : 200px ">
-              <form  class="form-inline formularioCarrito">
+              {{$item->descripcion}}
+            </td>
+            <td >
+              <form  class="formularioCarrito">  
+                <div class="input-group">
+                  <input type="number" name="cantidad" id="cantidad" value="1" class="form-control" aria-describedby="btnAgregar">
+                  <div class="input-group-append">
+                    <input type="submit" value="Agregar" name="btnAgregar" id="btnAgregar" class="btn btn-info ">
+                  </div>
+                </div>
                 <input type="hidden" name="idPlato" id="producto" value="{{$item->id}}">
-                <input type="number" name="cantidad" style="width : 50px " id="cantidad" value="1" class="form-control">
                 <input type="hidden" name="precio" id="precio" value="{{$item->precio}}">
                 <input type="hidden" name="nombre" id="nombre" value="{{$item->nombrePlato}}">
-                <input type="submit" value="Agregar" name="btnAgregar" id="btnAgregar" class="btn btn-info">
                 <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
-              </form>
+              </form> 
             </td>
           </tr>
-          @endif  
-        @endforeach
-      </tr>
-      
+          <tr class="expandable-body d-none">
+            <td colspan="4">
+              <div class="p-0" colspan="3">
+                <table class="table table-hover">
+                  <tr>
+                    <td > 
+                      <strong>Adicionales:</strong> 
+                      @if (isset($item->adicionales))
+                          @for ($a = 0; $a < count($item->adicionales); $a++)
+                            @if ($item->adicionales[$a]->estadoAdicional == 1)
+                              <div class="form-check form-check-inline">
+                                  <input class="form-check-input" data-adicionales name="adicionales[]" type="checkbox" value="{{ $item->adicionales[$a]->id}}" id="{{ $item->adicionales[$a]->id}}">
+                                  <label class="form-check-label" for="{{ $item->adicionales[$a]->id}}">
+                                    {{ $item->adicionales[$a]->nombreAdicional}}
+                                  </label>
+                              </div> 
+                            @endif
+                          @endfor       
+                      @endif
+                    </td>
+                  </tr>
+                </table>
+              </div>
+            </td>
+          </tr>
+        @endif 
+      @endforeach 
     </tbody>
   </table>
 </div>
