@@ -12,18 +12,18 @@
     <tbody>
       <tr>
         @foreach ($datos as $item)
-          <tr id="{{$item->id}}"> 
+          <tr id="fila{{$item->id}}"> 
             <td>{{$item->nombreCliente}}&nbsp{{$item->apellidoCliente}}</td>
-            <td>&nbsp - &nbsp {{$item->telefonoCliente}}</td>
-            <td>&nbsp - &nbsp {{$item->direccion}}</td>
-            <td>&nbsp - &nbsp {{$item->barrio}}</td>
-            <td class="text-right py-0 align-middle">
+            <td> | {{$item->telefonoCliente}}</td>
+            <td> | {{$item->direccion}}</td>
+            <td> | {{$item->barrio}}</td>
+            <th class="text-right py-0 align-middle">
               <div class="btn-group btn-group-sm">
                 <button class="btn btn-info agregarClienteForm" id="{{$item->id}}">
                   <i class="fas fa-user-check nav-icon"></i>
                 </button>
               </div>
-            </td>
+            </th>
           </tr> 
         @endforeach
       </tr>

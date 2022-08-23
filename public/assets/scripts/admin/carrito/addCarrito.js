@@ -16,9 +16,9 @@ function addPlatoCarrito(datos,urlFormulario,token, ){
       setTimeout(function(){
         var total=$('#totalCarrito').html();
         $('#total').val(total);
-        /* cuento las filas de la tabla y le asigno el valor al icono del carrito */
-        let filas = $(".enCarrito").length;  
-        $('#cantidadPlatos').html(filas);
+        /* le asigno el valor al icono del carrito en el boton de agregar */
+        var totalPlatosCarrito=$('#cantidadPlatosCarrito').html();
+        $('#cantidadPlatos').html(totalPlatosCarrito);
       },700); 
     },
     error: function (data)

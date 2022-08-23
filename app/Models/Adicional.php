@@ -9,5 +9,5 @@ class Adicional extends Model
 {
     protected $connection = 'mysql';
     protected $table = "adicional";
-    protected $fillable = ['id', 'nombreAdicional', 'precioAdicional', 'descripcionAdicional', 'subCategoriaAdicional', 'estadoAdicional', 'fotoAdicional'];
+    protected $fillable = ['id', 'nombreAdicional', 'precioAdicional', 'subCategoriaAdicional', 'estadoAdicional'];
 }

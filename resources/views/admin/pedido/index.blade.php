@@ -7,13 +7,12 @@ Inicio
 <script src="{{asset("assets/scripts/admin/pedido/pedidoBuscarPlatos.js")}}"></script> 
 <script src="{{asset("assets/scripts/admin/pedido/rellenarSelectTipoPago.js")}}"></script> 
 <script src="{{asset("assets/scripts/admin/pedido/rellenarSelectTipoPedido.js")}}"></script> 
-<script src="{{asset("assets/scripts/admin/pedido/addCarrito.js")}}"></script> 
-<script src="{{asset("assets/scripts/admin/pedido/eliminarPlatoCarrito.js")}}"></script> 
-<script src="{{asset("assets/scripts/admin/pedido/eliminarAdicionalCarrito.js")}}"></script> 
-<script src="{{asset("assets/scripts/admin/pedido/vaciarCarrito.js")}}"></script> 
+<script src="{{asset("assets/scripts/admin/carrito/addCarrito.js")}}"></script> 
+<script src="{{asset("assets/scripts/admin/carrito/eliminarPlatoCarrito.js")}}"></script> 
+<script src="{{asset("assets/scripts/admin/carrito/eliminarAdicionalCarrito.js")}}"></script> 
+<script src="{{asset("assets/scripts/admin/carrito/vaciarCarrito.js")}}"></script>
+<script src="{{asset("assets/scripts/admin/pedido/guardarFormulario.js")}}"></script>  
 <script src="{{asset("assets/scripts/buscar.js")}}"></script> 
-<script src="{{asset("assets/scripts/eliminar.js")}}"></script> 
-<script src="{{asset("assets/scripts/editar.js")}}"></script> 
 @endsection
 @section('contenido')
   <div class="row">
@@ -48,12 +47,13 @@ Inicio
   @include('admin/pedido/includes/clientes/modalClientes')
 <script>
   var token = $("#token").val();
+  const urlFormulario = "{{route('pedido.guardar')}}";
   const urlBuscarPlatos = "{{route('pedido.buscarPlatos')}}";
   const urlListar = "{{route('pedido.cliente')}}";
-  const urlAddCarrito = "{{route('pedido.addPlatoCarrito')}}";
-  const urlEliminarCarrito = "{{route('pedido.eliminarPlatoCarrito')}}";
-  const urlVaciarCarrito = "{{route('pedido.vaciarCarrito')}}";
-  const urlEliminarAdicionalCarrito = "{{route('pedido.eliminarAdicionalCarrito')}}";
+  const urlAddCarrito = "{{route('carrito.addPlatoCarrito')}}";
+  const urlEliminarCarrito = "{{route('carrito.eliminarPlatoCarrito')}}";
+  const urlVaciarCarrito = "{{route('carrito.vaciarCarrito')}}";
+  const urlEliminarAdicionalCarrito = "{{route('carrito.eliminarAdicionalCarrito')}}";
   var formulario;
   $(document).ready(function () {
     var urlTipoPago = "{{route('pedido.tipoPago')}}";
@@ -73,7 +73,7 @@ Inicio
     pedidoBuscarPlatos(urlBuscarPlatos);
     $('#inputBuscarPlatos').val('');
   });
-    /* buscar Clientes */
+  /* buscar Clientes */
   $("#inputBuscarClientes").keyup(function (evento) {
     var largoFiltro = $("#inputBuscarClientes").val();
     if (largoFiltro.length>=6) {
@@ -83,7 +83,7 @@ Inicio
   /* agregar cliente al formulario */
   $(document).on("click",".agregarClienteForm",function(){
     var idBoton = $(this).attr('id');
-    var txt=$('#'+idBoton+' td:lt(4)').text();
+    var txt=$('#fila'+idBoton+' td:not(:last-child)').text();
     $('#cliente').html('');
     $("#cliente").append("<option seleted value="+idBoton+">"+txt+"</option>");
     $('#inputBuscarClientes').val('');
@@ -98,11 +98,11 @@ Inicio
     e.preventDefault();
     $("#cerrarModalPlatos").trigger('click');
     var formulario = $(this);
-    /* agrego todos los input que esten cheked al formulario    */                          
-  $('input[data-adicionales]:checked').each(function() {
-    formulario.append($(this));
-  })    
-  var data = formulario.serialize(); 
+    /* agrego todos los input que esten cheked(adicionales) al formulario(add carrito) */                          
+    $('input[data-adicionales]:checked').each(function() {
+      formulario.append($(this));
+    });    
+    var data = formulario.serialize(); 
     addPlatoCarrito(data,urlAddCarrito,token);
   });
   /* eliminar platos del carrito */
@@ -120,8 +120,7 @@ Inicio
     $('#cantidadPlatos').html("0");
     vaciarCarrito(data,urlVaciarCarrito,token);  
   });
-
-    /* eliminar adionales del carrito */
+  /* eliminar adionales del carrito */
   $(document).on("click",".btnEliminarAdicionalCarrito",function(e){
     e.preventDefault();
     /* session_destoy(); */
@@ -129,6 +128,14 @@ Inicio
                 nombrePlato : $(this).attr('name')
               }
     eliminarAdicionalCarrito(data,urlEliminarAdicionalCarrito,token);  
+  });
+  /* registro del formulario */
+  $('#formulario').on('submit', function(e){
+    e.preventDefault();
+    var formulario = $('#formulario')[0];
+    var data = $("#formulario").serialize();
+    var tipo = "post";
+    EnvioFormulario(data,urlFormulario,token,tipo);                            
   });
 </script>
 @endsection

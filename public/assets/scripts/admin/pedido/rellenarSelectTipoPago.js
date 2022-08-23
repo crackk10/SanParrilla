@@ -8,7 +8,8 @@ function rellenarSelectTipoPago(url) {
       $('#tipoPago').html('');
       $.each(data, function (indexInArray, valueOfElement) { 
         $("#tipoPago").append("<option value="+valueOfElement.id+">"+valueOfElement.nombreTipoPago+"</option>");   
-      });   
+      });
+      $("#tipoPago").prepend("<option value='' selected disabled >Seleccionar</option>");   
     }
   }); 
 }

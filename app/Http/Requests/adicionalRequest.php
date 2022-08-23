@@ -30,7 +30,6 @@ class adicionalRequest extends FormRequest
         return [
             'nombreAdicional' => 'required |max:30',
             'precioAdicional' => 'required|numeric',
-            'descripionAdicional' => 'max:200',
             'subCategoriaAdicional' => 'required',
             'estadoAdicional' => 'required',
         ];
@@ -43,7 +42,6 @@ class adicionalRequest extends FormRequest
             'nombreAdicional.max' => 'El nombre tiene mas de 30 caracteres!',
             'precioAdicional.required' => 'El precio del Adicional es obligatorio!',
             'precioAdicional.numeric' => 'El precio debe ser solo numeros!',
-            'descripcionAdicional.max' => 'La descripcion tiene mas de 200 caracteres!',
             'subCategoriaAdicional.required' => 'La categoria del Adicional es obligatorio!',
             'estadoAdicional.required' => 'El estado del Adicional es obligatorio!',
         ];

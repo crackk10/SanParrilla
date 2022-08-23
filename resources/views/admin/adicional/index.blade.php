@@ -8,8 +8,6 @@ Adicionales
 <script src="{{asset("assets/scripts/admin/adicional/rellenarFormulario.js")}}"></script> 
 <script src="{{asset("assets/scripts/admin/adicional/rellenarSelectSubCategoria.js")}}"></script> 
 <script src="{{asset("assets/scripts/admin/adicional/guardarAdicional.js")}}"></script> 
-<script src="{{asset("assets/scripts/admin/adicional/validarArchivo.js")}}"></script> 
-<script src="{{asset("assets/scripts/admin/adicional/mostrarFoto.js")}}"></script> 
 <script src="{{asset("assets/scripts/buscar.js")}}"></script> 
 <script src="{{asset("assets/scripts/eliminar.js")}}"></script> 
 <script src="{{asset("assets/scripts/editar.js")}}"></script> 
@@ -77,11 +75,9 @@ Adicionales
     var data;
     if (tipo=="POST") {
       data = new FormData(formulario);
-      data.append("file", fotoAdicional.files[0]);
       EnvioFormulario(data,urlFormulario,token,tipo);  
     } else {
       data = new FormData(formulario);
-      data.append("file", fotoAdicional.files[0]);
       data.append("_method", "PUT");
       EnvioFormulario(data,urlFormulario,token,tipo);
     }                              
@@ -108,13 +104,5 @@ Adicionales
   $('#confirmar').on('click', function(){
     eliminar(urlEliminar,token);
   });
-  //file type validation
-  $("#fotoAdicional").change(function() {
-      ValidarArchivo(this.files[0]);
-      //mostrar foto
-      //Cuando el input cambie (se cargue un nuevo archivo) se va a ejecutar de nuevo el cambio de imagen y se verá reflejado.
-      readURL(this);
-  });
-
 </script>
 @endsection

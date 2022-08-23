@@ -20,12 +20,12 @@ class estadosSeeder extends Seeder
             'Inactivo',
             'Pago',
             'No Pago',
-            'cancelado',
+            'Cancelado',
         ];
-        foreach($estados as $key => $value){
+        foreach ($estados as $key => $value) {
             DB::table('estados')->insert([
                 'nombreEstado' => $value,
-                
+
             ]);
         }
     }

@@ -54,19 +54,8 @@
   <div class="col-lg-2"></div>
   <div class="col-lg-10" id="carrito"></div>
 </div>
-
-
-
-
-
-
-
-<input type="hidden" name="fechaPedido" value="{{ date("Y-m-d\TH-i") }}" id="fechaPedido">
 <input type="hidden" name="usuario" value="@auth{{ auth()->user()->id}}@endauth" id="usuario">
 <input type="hidden" name="estadoPedido" value="4" id="estadoPedido">
 <input type="hidden" name="total" value="" id="total">
 <input type="hidden" name="domiciliario" value="1" id="domiciliario">
-
-
 <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">
-

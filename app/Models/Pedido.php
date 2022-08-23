@@ -7,5 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pedido extends Model
 {
-    use HasFactory;
+    protected $connection = 'mysql';
+    protected $table = "pedido";
+    protected $fillable = ['id', 'usuario', 'cliente', 'domiciliario', 'tipoPago', 'tipoPedido', 'estadoPedido', 'observacion', 'total'];
 }

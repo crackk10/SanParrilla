@@ -60,7 +60,7 @@
                                       
                                     }
                                     if ($claveAdicional=="precioAdicional") {
-                                      $total += $valorAdicional;
+                                      $total += $valoresPlato['cantidad'] * $valorAdicional;
                                       echo'<div class="p-0 mt-0 mb-0 bd-highlight font-italic text-muted">'.$valorAdicional.'</div>';
                                     }
                                   }
@@ -76,12 +76,8 @@
                   </td>  
                 </tr>
               @else
-                @if ($clave=="nombre") {{-- si es el campo nombre agrego dos div para los adicionales --}}
-                <td>
-                    <div class="text-monospace">{{ $valor }}</div>
-                </td>
-                @else{{-- sino, simplemente imprimo los valores --}}
-                  <td class="text-monospace">{{ $valor }}</td>
+                @if ($clave!="id") {{-- creo un if para no imprimir el id del plato --}}
+                <td class="text-monospace">{{ $valor }}</td>
                 @endif
               @endif
             @endforeach

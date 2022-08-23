@@ -15,6 +15,7 @@
       </div>
       <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-default" id="cerrarModalCliente" data-dismiss="modal">Cerrar</button>
+        <a href="{{route('cliente')}}" target="_blank" class="btn btn-info">Registrar Cliente</a>
       </div>
     </div>
     <!-- /.modal-content -->
