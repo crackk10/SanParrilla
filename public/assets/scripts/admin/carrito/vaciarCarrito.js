@@ -19,7 +19,7 @@ function vaciarCarrito(datos,urlFormulario,token){
     },
     error: function (data)
     {  
-        console.log("Error al agregar al carrito"); 
+      console.log("Error al agregar al carrito"); 
     }
   });
 }

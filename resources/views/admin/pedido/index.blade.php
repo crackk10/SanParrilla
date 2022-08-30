@@ -121,7 +121,7 @@ Inicio
     vaciarCarrito(data,urlVaciarCarrito,token);  
   });
   /* eliminar adionales del carrito */
-  $(document).on("click",".btnEliminarAdicionalCarrito",function(e){
+  $(document).on("click",".btnAsignarDomicilio",function(e){
     e.preventDefault();
     /* session_destoy(); */
     var data ={ nombreAdicional : $(this).attr('id'),

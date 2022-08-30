@@ -40,11 +40,20 @@
 <!-- campo tipoPago y tipoPedido -->
 <!-- /campo observacion -->
 <div class="row mt-2">
-  <div class="col-lg-12">
+    {{-- campo tipoPago  --}}
+  <div class="form-group col-lg-6">
+      <label for="tipoPago" class="col-lg-4 control-label">Estado</label>
+      <select class="form-control col-lg-8" id="estadoPedido" name="estadoPedido" >
+          <option value="4" selected>No Pago</option>
+          <option value="3">Pago</option>
+      </select>
+  </div>
+  {{-- campo tipoPago  --}}
+  <div class="col-lg-6">
     {{-- campo observacion --}} 
     <div class="form-group">
-      <label for="observacion" class="col-lg-2 control-label ">Observacion</label>
-      <textarea name="observacion" id="observacion" class="form-control col-lg-10" cols="12" rows="2"  value="{{old('observacion')}}"></textarea>
+      <label for="observacion" class="col-lg-4 control-label ">Observacion</label>
+      <textarea name="observacion" id="observacion" class="form-control col-lg-8" cols="12" rows="2"  value="{{old('observacion')}}"></textarea>
     </div>
     {{-- campo observacion --}}     
   </div>
@@ -55,7 +64,6 @@
   <div class="col-lg-10" id="carrito"></div>
 </div>
 <input type="hidden" name="usuario" value="@auth{{ auth()->user()->id}}@endauth" id="usuario">
-<input type="hidden" name="estadoPedido" value="4" id="estadoPedido">
 <input type="hidden" name="total" value="" id="total">
 <input type="hidden" name="domiciliario" value="1" id="domiciliario">
 <input type="hidden" name="_token" value="{{csrf_token()}}" id="token">

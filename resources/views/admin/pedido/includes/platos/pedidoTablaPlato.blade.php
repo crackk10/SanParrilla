@@ -39,26 +39,20 @@
           </tr>
           <tr class="expandable-body d-none">
             <td colspan="4">
-              <div class="p-0" colspan="3">
-                <table class="table table-hover">
-                  <tr>
-                    <td > 
-                      <strong>Adicionales:</strong> 
-                      @if (isset($item->adicionales))
-                          @for ($a = 0; $a < count($item->adicionales); $a++)
-                            @if ($item->adicionales[$a]->estadoAdicional == 1)
-                              <div class="form-check form-check-inline">
-                                  <input class="form-check-input" data-adicionales name="adicionales[]" type="checkbox" value="{{ $item->adicionales[$a]->id}}" id="{{ $item->adicionales[$a]->id}}">
-                                  <label class="form-check-label" for="{{ $item->adicionales[$a]->id}}">
-                                    {{ $item->adicionales[$a]->nombreAdicional}}
-                                  </label>
-                              </div> 
-                            @endif
-                          @endfor       
+              <div class="p-0 d-flex justify-content-center flex-row" colspan="3">
+                <strong>Adicionales:</strong> 
+                @if (isset($item->adicionales))
+                    @for ($a = 0; $a < count($item->adicionales); $a++)
+                      @if ($item->adicionales[$a]->estadoAdicional == 1)
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" data-adicionales name="adicionales[]" type="checkbox" value="{{ $item->adicionales[$a]->id}}" id="{{ $item->adicionales[$a]->id}}">
+                            <label class="form-check-label" for="{{ $item->adicionales[$a]->id}}">
+                              {{ $item->adicionales[$a]->nombreAdicional}}
+                            </label>
+                        </div> 
                       @endif
-                    </td>
-                  </tr>
-                </table>
+                    @endfor       
+                @endif
               </div>
             </td>
           </tr>

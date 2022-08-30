@@ -44,14 +44,14 @@
     <!--fin aside -->
     <div class="content-wrapper">
         <section class="content">
-            @yield("contenido")        
+            @yield("contenido")      
          </section>
     </div>
     <!-- Inicio footer-->
     @include("theme/$theme/footer")
      <!--fin footer -->
   </div> 
-  
+
 @yield('scripts')
   <!-- Bootstrap 4 -->
   <script src="{{asset("assets/$theme/plugins/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
@@ -60,8 +60,6 @@
   <!-- AdminLTE for demo purposes -->
   {{-- <script src="{{asset("assets/$theme/dist/js/demo.js")}}"></script> --}}
   <!-- toastr -->
-  <script src="{{asset("assets/$theme/plugins/toastr/toastr.min.js")}}"></script>
-
-  
+  <script src="{{asset("assets/$theme/plugins/toastr/toastr.min.js")}}"></script>  
 </body>
 </html>

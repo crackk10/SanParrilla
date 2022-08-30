@@ -10,12 +10,8 @@ function EnvioFormulario(datos,urlFormulario,token,tipo) {
     processData:false,
     success: function(data)            
     {   
-      if (data.success=='true') 
-        {
-            console.log("guardo exitosamente");
-            toastr.success( 'Creado Exitosamente', 'Exito',{
-            "positionClass": "toast-top-right"})
-        }  
+      toastr.success( 'Creado Exitosamente', 'Exito',{
+      "positionClass": "toast-top-right"})
       /* Cerrar modal y reiniciar inputs */
       $("#cerrarModal").trigger('click');
       document.getElementById("formulario").reset();                   

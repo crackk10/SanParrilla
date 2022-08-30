@@ -6,12 +6,9 @@ function EnvioFormulario(datos,urlFormulario,token,tipo){
     data: datos,
     success: function(data)            
     {   
-      if (data.success=='true') 
-        {
-            console.log("guardo exitosamente");
-            toastr.success( 'Creado Exitosamente', 'Exito',{
-            "positionClass": "toast-top-right"})
-        }  
+      console.log("guardo exitosamente");
+      toastr.success( 'Creado Exitosamente', 'Exito',{
+      "positionClass": "toast-top-right"})
       /* Cerrar modal y reiniciar inputs */
       $("#cerrarModal").trigger('click');                
       //esperar 0,5 segundos para actualizar la tabla
@@ -23,15 +20,14 @@ function EnvioFormulario(datos,urlFormulario,token,tipo){
     },
     error: function (data)
     {  
-        console.log("Error al guardar"); 
-        $("#list").val('');
-        var messages = data.responseJSON.errors;
-        $.each(messages, function(index, val) {
-            toastr.error( val, 'Problema al Guardar',{
-            "positionClass": "toast-top-right",
-            "extendedTimeOut": "6000"})   
-        });
+      console.log("Error al guardar"); 
+      $("#list").val('');
+      var messages = data.responseJSON.errors;
+      $.each(messages, function(index, val) {
+          toastr.error( val, 'Problema al Guardar',{
+          "positionClass": "toast-top-right",
+          "extendedTimeOut": "6000"})   
+      });
     }
   });
-
 }

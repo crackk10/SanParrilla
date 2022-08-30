@@ -20,7 +20,22 @@
             <a href="{{route('pedido')}}" class="nav-link">Inicio</a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">Domicilios</a>
+            <a href="{{route('mesa.index')}}" class="nav-link">
+              Mesas
+              <span class="badge badge-info right" id="cantidadMesas">0</span>  
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('domicilio.index')}}" class="nav-link">
+              Domicilios
+              <span class="badge badge-info right" id="cantidadDomicilios">0</span>  
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{route('recoge.index')}}" class="nav-link">
+              Recoge
+              <span class="badge badge-info right" id="cantidadDomicilios">0</span>  
+            </a>
           </li>
           <li class="nav-item dropdown">
             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">Informes</a>

@@ -44,35 +44,22 @@
               @if ($clave == "adicionales") {{-- si tiene adicionales entro a los bucles para adicionales --}}
                 <tr class="expandable-body">
                   <td colspan="4">
-                    <div class="p-0" style="">
-                      <table class="table table-hover">
-                        <tbody>
-                          <tr>
-                            <td></td>
-                            <td></td>
-                            <td>
-                              @php  
-                                foreach ($valor as $arrayAdicional => $adicional ){                    
-                                  echo '<div class="d-flex flex-row bd-highlight">';
-                                  foreach ($adicional as $claveAdicional => $valorAdicional){ 
-                                    if ($claveAdicional=="nombreAdicional") {
-                                    echo  '<div class="p-0 mt-0 mb-0 bd-highlight"><button class="btn btn-link btn-sm btnEliminarAdicionalCarrito" name="'.$nombreplato.'" id="'.$valorAdicional.'">x</button></div><div class="p-0 mt-0 mb-0 bd-highlight w-50 font-italic text-muted">'.$valorAdicional.'</div>';
-                                      
-                                    }
-                                    if ($claveAdicional=="precioAdicional") {
-                                      $total += $valoresPlato['cantidad'] * $valorAdicional;
-                                      echo'<div class="p-0 mt-0 mb-0 bd-highlight font-italic text-muted">'.$valorAdicional.'</div>';
-                                    }
-                                  }
-                                  echo '</div>';        
-                                }
-                              @endphp
-                            </td>
-                            <td></td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
+                    @php  
+                      foreach ($valor as $arrayAdicional => $adicional ){                    
+                        echo '<div class="d-flex flex-row justify-content-center bd-highlight p-0 mt-0 mb-0">';
+                        foreach ($adicional as $claveAdicional => $valorAdicional){ 
+                          if ($claveAdicional=="nombreAdicional") {
+                          echo  '<div class="bd-highlight"><button class="btn btn-link btn-sm btnEliminarAdicionalCarrito" name="'.$nombreplato.'" id="'.$valorAdicional.'">x</button></div><div class="p-0 mt-0 mb-0 bd-highlight w-50 font-italic text-muted">'.$valorAdicional.'</div>';
+                            
+                          }
+                          if ($claveAdicional=="precioAdicional") {
+                            $total += $valoresPlato['cantidad'] * $valorAdicional;
+                            echo'<div class="bd-highlight font-italic text-muted">'.$valorAdicional.'</div>';
+                          }
+                        }
+                        echo '</div>';        
+                      }
+                    @endphp
                   </td>  
                 </tr>
               @else
@@ -98,7 +85,7 @@
           </th>
         </tr>
                  
-        </tbody>
+      </tbody>
          
     </table>
   </div>

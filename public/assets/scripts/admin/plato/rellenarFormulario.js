@@ -5,5 +5,4 @@ function Rellenar(data) {
   $('#subCategoriaPlato').val(data.subCategoriaPlato);
   $('#estadoPlato').val(data.estadoPlato);
   $('#blah').attr('src', data.fotoPlato);
-  
 }

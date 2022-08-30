@@ -107,3 +107,20 @@ Route::post('carrito.eliminarPlatoCarrito', 'admin\carritoController@eliminarPla
 Route::post('carrito.eliminarAdicionalCarrito', 'admin\carritoController@eliminarAdicionalCarrito')->name('carrito.eliminarAdicionalCarrito');
 Route::post('carrito.vaciarCarrito', 'admin\carritoController@vaciarCarrito')->name('carrito.vaciarCarrito');
 /* rutas de carrito */
+/* rutas de Domicilio */
+Route::get('domicilio/index', 'admin\DomicilioController@index')->name('domicilio.index');
+Route::get('domicilio.listar', 'admin\DomicilioController@listar')->name('domicilio.listar');
+Route::get('domicilio.datosDomiciliario', 'admin\DomicilioController@datosDomiciliario')->name('domicilio.datosDomiciliario');
+Route::post('domicilio.actualizarDomiciliario', 'admin\DomicilioController@actualizarDomiciliario')->name('domicilio.actualizarDomiciliario');
+Route::post('domicilio.cancelar', 'admin\DomicilioController@cancelar')->name('domicilio.cancelar');
+/* rutas de Domicilio */
+/* rutas de Mesa */
+Route::get('mesa/index', 'admin\MesaController@index')->name('mesa.index');
+Route::get('mesa.listar', 'admin\MesaController@listar')->name('mesa.listar');
+Route::post('mesa.actualizarEstado', 'admin\MesaController@actualizarEstado')->name('mesa.actualizarEstado');
+/* rutas de Mesa */
+/* rutas de recoge */
+Route::get('recoge/index', 'admin\RecogeController@index')->name('recoge.index');
+Route::get('recoge.listar', 'admin\RecogeController@listar')->name('recoge.listar');
+Route::post('recoge.actualizarEstado', 'admin\RecogeController@actualizarEstado')->name('recoge.actualizarEstado');
+/* rutas de recoge */
